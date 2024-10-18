@@ -1,0 +1,13 @@
+/* src/App.css */
+.result-message {
+  text-align: center;
+  font-size: 1.2em;
+  color: green;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .result-message {
+    font-size: 1em;
+  }
+}
