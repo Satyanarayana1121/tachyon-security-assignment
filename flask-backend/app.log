@@ -1,0 +1,23 @@
+2024-10-19 15:49:53,978 INFO Logging setup complete. Writing to both console and log file.
+2024-10-19 15:49:54,206 WARNING  * Debugger is active!
+2024-10-19 15:49:54,223 INFO  * Debugger PIN: 984-403-911
+2024-10-19 15:49:59,787 INFO Checking availability for device: Router1
+2024-10-19 15:50:00,439 WARNING Password validation failed for device: Router1
+2024-10-19 15:50:00,441 INFO 127.0.0.1 - - [19/Oct/2024 15:50:00] "[31m[1mGET /check_availability?device_name=Router1&password=dsad HTTP/1.1[0m" 401 -
+2024-10-19 15:50:23,635 INFO  * Detected change in 'D:\\REPOS\\tachyon-security-assignment\\flask-backend\\app.py', reloading
+2024-10-19 15:50:25,017 INFO Logging setup complete. Writing to both console and log file.
+2024-10-19 15:50:25,209 WARNING  * Debugger is active!
+2024-10-19 15:50:25,231 INFO  * Debugger PIN: 984-403-911
+2024-10-19 15:50:38,360 INFO  * Detected change in 'D:\\REPOS\\tachyon-security-assignment\\flask-backend\\app.py', reloading
+2024-10-19 15:50:39,237 INFO Logging setup complete. Writing to both console and log file.
+2024-10-19 15:50:39,369 WARNING  * Debugger is active!
+2024-10-19 15:50:39,381 INFO  * Debugger PIN: 984-403-911
+2024-10-19 15:50:50,466 INFO  * Detected change in 'D:\\REPOS\\tachyon-security-assignment\\flask-backend\\app.py', reloading
+2024-10-19 15:50:51,599 WARNING  * Debugger is active!
+2024-10-19 15:50:51,618 INFO  * Debugger PIN: 984-403-911
+2024-10-19 15:52:02,166 INFO Fetching all device names
+2024-10-19 15:52:02,167 INFO Fetched devices: ['Router1', 'sajdjk', 'satya1', 'satya', 'satay1', 'satya', 'satya1']
+2024-10-19 15:52:02,171 INFO 127.0.0.1 - - [19/Oct/2024 15:52:02] "GET /devices HTTP/1.1" 200 -
+2024-10-19 15:52:02,420 INFO Fetching all device names
+2024-10-19 15:52:02,423 INFO Fetched devices: ['Router1', 'sajdjk', 'satya1', 'satya', 'satay1', 'satya', 'satya1']
+2024-10-19 15:52:02,426 INFO 127.0.0.1 - - [19/Oct/2024 15:52:02] "GET /devices HTTP/1.1" 200 -

@@ -14,32 +14,41 @@ export const addDevice = async (device) => {
     }
 };
 
-// Check device availability
+// Check device availability (GET request)
 export const checkDeviceAvailability = async (deviceName, password) => {
     try {
-        const response = await axios.post(`${API_BASE_URL}/check_availability`, {
-            device_name: deviceName,
-            password: password
-        }, {
-            headers: {
-                'Content-Type': 'application/json'  // Ensure correct content-type header
+        // Make a GET request with device_name and password as query parameters
+        const response = await axios.get(`${API_BASE_URL}/check_availability`, {
+            params: {
+                device_name: deviceName,
+                password: password
             }
         });
         return response.data;
     } catch (error) {
         if (error.response) {
-            // Log and return the backend error
+            // Handle backend error response
             console.error('Backend error:', error.response.data);
             throw new Error(`Failed to check availability: ${error.response.data.message || 'Unknown error'}`);
         } else if (error.request) {
-            // Log request errors (no response from server)
+            // Handle no response from the server
             console.error('No response from server:', error.request);
             throw new Error('No response from server. Please try again.');
         } else {
-            // Log other errors
+            // Handle other errors
             console.error('Error setting up request:', error.message);
             throw new Error(`Error: ${error.message}`);
         }
+    }
+};
+
+export const fetchDevices = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/devices`);
+        return response.data.devices;
+    } catch (error) {
+        console.error('Error fetching devices:', error);
+        throw error;
     }
 };
 
