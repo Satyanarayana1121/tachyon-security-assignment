@@ -1,57 +1,74 @@
-// src/views/DeviceRegistrationView.js
 import React, { useState } from 'react';
-import './DeviceRegistrationView.css';  // Import the CSS file
+import './DeviceRegistrationView.css';  // Import the CSS file for styling the form
 
 function DeviceRegistrationView({ onSubmit }) {
-  const [deviceName, setDeviceName] = useState('');
-  const [ipAddress, setIpAddress] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState('');
-  const [submitting, setSubmitting] = useState(false);  // Submitting state
+  // State variables for form inputs and other states
+  const [deviceName, setDeviceName] = useState('');  // To store the entered device name
+  const [ipAddress, setIpAddress] = useState('');  // To store the entered IP address
+  const [password, setPassword] = useState('');  // To store the entered password
+  const [errorMessage, setErrorMessage] = useState('');  // To store validation error messages
+  const [submitting, setSubmitting] = useState(false);  // To indicate form submission in progress
 
+  // Regular expression pattern for validating IPv4 addresses
   const ipPattern = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
 
+  // Regular expression pattern for validating password strength
+  const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+  // Function to validate the form fields before submission
   const validateForm = () => {
-    const newErrors = {};
+    // Check each field and return early if an error is found
     if (!deviceName) {
-      newErrors.deviceName = 'Device name is required';
+      setErrorMessage('Device name is required');
+      return false;  // Return false if validation fails
     }
     if (!ipAddress) {
-      newErrors.ipAddress = 'IP address is required';
+      setErrorMessage('IP address is required');
+      return false;
     } else if (!ipPattern.test(ipAddress)) {
-      newErrors.ipAddress = 'Please enter a valid IP address (e.g., 192.168.0.1)';
+      setErrorMessage('Please enter a valid IP address (e.g., 192.168.0.1)');
+      return false;
     }
     if (!password) {
-      newErrors.password = 'Password is required';
-    } else if (password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters long';
+      setErrorMessage('Password is required');
+      return false;
+    } else if (!passwordPattern.test(password)) {
+      setErrorMessage('Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character');
+      return false;
     }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Returns true if no errors
+
+    // Clear the error message if all fields are valid
+    setErrorMessage('');
+    return true;  // Return true if validation passes
   };
 
+  // Function to handle the form submission
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault();  // Prevent the default form submission behavior
 
+    // Validate form inputs
     if (!validateForm()) {
-      return;
+      return;  // If validation fails, exit the function
     }
 
-    setSubmitting(true);  // Start the submitting state
+    setSubmitting(true);  // Set the submitting state to true, disabling the submit button
 
-    // Call the onSubmit function passed from the controller
-    const response = await onSubmit({ device_name: deviceName, ip_address: ipAddress, password: password });
+    try {
+      // Call the onSubmit function passed from the parent component to handle device registration
+      await onSubmit({
+        device_name: deviceName,  // Send the device name
+        ip_address: ipAddress,  // Send the IP address
+        password: password,  // Send the password
+      });
 
-    setSubmitting(false);  // Stop the submitting state
-
-    if (response.success) {
+      // Clear the form fields after successful submission
       setDeviceName('');
       setIpAddress('');
       setPassword('');
-      setSuccessMessage('Device registered successfully!');
-    } else {
-      setSuccessMessage('Failed to register device. Please try again.');
+    } catch (error) {
+      console.error('Error during device registration:', error);  // Log any errors that occur during the registration
+    } finally {
+      setSubmitting(false);  // Reset the submitting state, re-enabling the submit button
     }
   };
 
@@ -59,42 +76,44 @@ function DeviceRegistrationView({ onSubmit }) {
     <div className="form-container">
       <h2 className="form-title">Register a New Device</h2>
       <form onSubmit={handleSubmit} className="form">
+        {/* Device Name Input Field */}
         <label>Device Name</label>
         <input
           type="text"
           value={deviceName}
-          onChange={(e) => setDeviceName(e.target.value)}
+          onChange={(e) => setDeviceName(e.target.value)}  // Update the device name state when the input changes
           className="form-input"
           placeholder="Enter device name"
         />
-        {errors.deviceName && <p className="error-message">{errors.deviceName}</p>}
 
+        {/* IP Address Input Field */}
         <label>IP Address</label>
         <input
           type="text"
           value={ipAddress}
-          onChange={(e) => setIpAddress(e.target.value)}
+          onChange={(e) => setIpAddress(e.target.value)}  // Update the IP address state when the input changes
           className="form-input"
           placeholder="Enter IP address"
         />
-        {errors.ipAddress && <p className="error-message">{errors.ipAddress}</p>}
 
+        {/* Password Input Field */}
         <label>Password</label>
         <input
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}  // Update the password state when the input changes
           className="form-input"
           placeholder="Enter password"
         />
-        {errors.password && <p className="error-message">{errors.password}</p>}
 
+        {/* Display any validation error message */}
+        {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+        {/* Submit Button with disabling state during submission */}
         <button type="submit" className="submit-button" disabled={submitting}>
           {submitting ? 'Submitting...' : 'Register Device'}
         </button>
       </form>
-
-      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 }

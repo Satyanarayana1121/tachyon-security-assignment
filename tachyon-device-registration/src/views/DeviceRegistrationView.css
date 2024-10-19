@@ -85,12 +85,14 @@ body {
     color: green;
     font-size: 1.2rem;
     margin-top: 15px;
+    text-transform: capitalize;
 }
 
 .error-message {
     color: red;
     font-size: 0.9rem;
     margin-top: 5px;
+    text-transform: capitalize;
 }
 
 /* Mobile responsive styling */

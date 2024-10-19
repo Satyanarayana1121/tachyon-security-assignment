@@ -152,7 +152,7 @@ The frontend provides a form for registering devices and includes the following 
 
 1. **Device Name**: Required field.
 2. **IP Address**: Must follow the correct IPv4 format (e.g., \`192.168.0.1\`).
-3. **Password**: Must be at least 6 characters long.
+3. **Password**: Must be at least 8 characters long and contains at least one uppercase letter and contains at least one lowercase letter and contains at least one number and contains at least one special character.
 
 If any validation fails, an error message is displayed next to the relevant input field.
 
@@ -185,9 +185,53 @@ The following validation rules apply when registering a new device:
 
 - **Device Name**: Required.
 - **IP Address**: Must be a valid IPv4 address (e.g., \`192.168.0.1\`).
-- **Password**: Must be at least 6 characters long.
+- **Password**: Must be at least 8 characters long and contains at least one uppercase letter and contains at least one lowercase letter and contains at least one number and contains at least one special character.
 
 If any field does not meet these requirements, the frontend will show appropriate error messages.
+
+# Docker Setup for Tachyon Security Assignment
+
+This guide explains how to set up the Docker environment for the **Device Management System** project using **Docker**.
+
+## Prerequisites
+
+- Install Docker from [Docker Official Website](https://www.docker.com/get-started).
+- Ensure MySQL and Flask dependencies are set in `requirements.txt`.
+
+---
+
+## Dockerfile for Flask Backend
+
+Create a `Dockerfile` in the `backend/` folder with the following content:
+
+```dockerfile
+# Use official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Make port 5000 available to the world outside this container
+EXPOSE 5000
+
+# Define environment variable
+ENV FLASK_APP=app.py
+ENV FLASK_RUN_HOST=0.0.0.0
+
+# Run the application
+CMD ["flask", "run"]
+
+##Build Docker Images
+
+  \`\`\`bash
+  docker-compose build
+  \`\`\`
 
 ## Future Enhancements
 
