@@ -1,0 +1,27 @@
+version: '3'
+services:
+  flask-backend:
+    build: ./flask-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - ./flask-backend:/app
+    depends_on:
+      - db
+
+  frontend:
+    build: ./tachyon-device-registration  
+    ports:
+      - "3000:3000"
+    depends_on:
+      - flask-backend
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: satya
+      MYSQL_DATABASE: world
+    ports:
+      - "3306:3306"
