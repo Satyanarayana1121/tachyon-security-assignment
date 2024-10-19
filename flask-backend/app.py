@@ -121,27 +121,6 @@ def check_availability():
     finally:
         cursor.close()
 
-# Get all devices
-@app.route('/get_devices', methods=['GET'])
-def get_devices():
-    try:
-        cursor = get_db_cursor()
-
-        # Fetch all devices
-        cursor.execute("SELECT device_name, ip_address FROM devices")
-        devices = cursor.fetchall()
-
-        devices_list = [{"device_name": device[0], "ip_address": device[1]} for device in devices]
-
-        return jsonify({"devices": devices_list}), 200
-
-    except mysql.connector.Error as err:
-        logging.error(f"Database Error: {err}")
-        return jsonify({"message": "Database Error"}), 500
-
-    finally:
-        cursor.close()
-
 # Run the app
 if __name__ == '__main__':
     app.run(debug=True)

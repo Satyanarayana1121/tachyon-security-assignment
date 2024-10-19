@@ -18,6 +18,7 @@ export const handleDeviceAvailabilityCheck = async (deviceName, password, setRes
         const response = await checkDeviceAvailability(deviceName, password);
         setResult(response.message);
     } catch (error) {
-        setResult('Error checking availability');
+        console.error('Error in handleDeviceAvailabilityCheck:', error);  // Log the error for debugging
+        setResult(error.message);  // Return the error message to the frontend
     }
 };

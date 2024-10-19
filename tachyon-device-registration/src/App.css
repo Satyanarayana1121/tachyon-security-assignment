@@ -1,13 +1,43 @@
-/* src/App.css */
-.result-message {
-  text-align: center;
-  font-size: 1.2em;
-  color: green;
-  margin-top: 20px;
+/* Container for buttons */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-@media (max-width: 600px) {
-  .result-message {
-    font-size: 1em;
-  }
+/* Style for buttons */
+.toggle-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+/* Style for active button */
+.toggle-button.active {
+  background-color: #0056b3;
+}
+
+/* Add hover effect */
+.toggle-button:hover {
+  background-color: #0056b3;
+}
+
+/* Result message styling (same as before) */
+.result-message {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
