@@ -200,6 +200,18 @@ This guide explains how to set up the Docker environment for the **Device Manage
 
 ---
 
+## Future Enhancements
+
+- **Edit Device**: Add functionality to edit existing device details.
+- **Delete Device**: Add functionality to delete devices from the database.
+- **User Authentication**: Add user authentication for more secure operations.
+- **Pagination**: Add pagination for listing devices if the list grows large.
+- **Testing**: Implement unit and integration tests for the backend API and frontend components.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
 ## Dockerfile for Flask Backend
 
 Create a `Dockerfile` in the `backend/` folder with the following content:
@@ -232,14 +244,3 @@ CMD ["flask", "run"]
   \`\`\`bash
   docker-compose build
   \`\`\`
-
-## Future Enhancements
-
-- **Edit Device**: Add functionality to edit existing device details.
-- **Delete Device**: Add functionality to delete devices from the database.
-- **User Authentication**: Add user authentication for more secure operations.
-- **Pagination**: Add pagination for listing devices if the list grows large.
-- **Testing**: Implement unit and integration tests for the backend API and frontend components.
-
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
